@@ -9,5 +9,6 @@
       "matches": ["<all_urls>"],
       "js": ["src/content.tsx"]
     }
-  ]
+  ],
+  "permissions": ["storage", "tabs", "scripting"]
 }

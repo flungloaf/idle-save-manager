@@ -1,26 +1,36 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import { useGameSettings } from './storage'
 
 const DetectCopies = () => {
-  const initialized = useRef(false)
+  const url = window.location.href
+  const [settings, setSettings] = useGameSettings(url)
+  const settingsRef = useRef(settings)
 
   useEffect(() => {
-    if (initialized.current) return
-    initialized.current = true
-    document.addEventListener('copy', async () => {
-      try {
-        const clipboardText = await navigator.clipboard.readText()
-        console.log('Copied content:', clipboardText)
-      } catch (err) {
-        console.log('Clipboard read failed:', err)
-      }
-    })
-
-    return () => {
-      document.removeEventListener('copy', () => {
-        console.log('Copy event removed')
-      })
+    if (settings) {
+      settingsRef.current = settings
     }
-  }, [])
+  }, [settings])
+
+  const handleCopy = useCallback(async () => {
+    if (!settingsRef.current?.enabled) return
+    const data = await navigator.clipboard.readText()
+    if (!data) return
+    setSettings((prev) => ({
+      ...prev,
+      saves: [
+        ...prev.saves,
+        { name: 'test', data, timestamp: new Date().getTime() },
+      ],
+    }))
+  }, [setSettings])
+
+  useEffect(() => {
+    document.addEventListener('copy', handleCopy)
+    return () => {
+      document.removeEventListener('copy', handleCopy)
+    }
+  }, [handleCopy])
 
   return <></>
 }

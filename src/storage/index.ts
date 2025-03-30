@@ -1,0 +1,69 @@
+import { useCallback, useEffect, useState } from 'react'
+import { GameSettings } from './types'
+
+const defaultSettigns: GameSettings = {
+  enabled: false,
+  dataType: 'any',
+  saves: [],
+}
+
+/**
+ * A custom hook for managing state in chrome.storage.sync with automatic syncing.
+ * @param key The storage key.
+ * @param defaultValue The default value if none exists in storage.
+ * @returns A stateful value and a function to update it.
+ */
+export const useChromeStorageState = <T>(
+  key: string,
+  defaultValue: T,
+): [T, (newValue: T | ((prev: T) => T)) => void] => {
+  const [state, setState] = useState<T>(defaultValue)
+
+  useEffect(() => {
+    // Fetch initial value from chrome.storage
+    chrome.storage.sync.get(key, (data) => {
+      if (data[key] !== undefined) {
+        setState(data[key] as T)
+      }
+    })
+
+    // Listen for changes in storage
+    const handleStorageChange = (
+      changes: Record<string, chrome.storage.StorageChange>,
+    ) => {
+      if (changes[key]) {
+        setState(changes[key].newValue as T)
+      }
+    }
+    chrome.storage.onChanged.addListener(handleStorageChange)
+
+    return () => chrome.storage.onChanged.removeListener(handleStorageChange)
+  }, [key])
+
+  // Function to update state and storage
+  const setChromeStorageState = useCallback(
+    (newValue: T | ((prev: T) => T)) => {
+      setState((prev) => {
+        const updatedValue =
+          newValue instanceof Function ? newValue(prev) : newValue
+        chrome.storage.sync.set({ [key]: updatedValue })
+        return updatedValue
+      })
+    },
+    [key],
+  )
+
+  return [state, setChromeStorageState]
+}
+
+export const useGameSettings = (
+  url?: string,
+): ReturnType<typeof useChromeStorageState<GameSettings>> => {
+  // return this is there is no key for consistency
+  const defaultState = useState<GameSettings>(defaultSettigns)
+  const chromeStorageState = useChromeStorageState<GameSettings>(
+    url || 'default',
+    defaultSettigns,
+  )
+  return url ? chromeStorageState : defaultState
+}
