@@ -11,7 +11,7 @@ const defaultSettigns: GameSettings = {
 }
 
 /**
- * A custom hook for managing state in chrome.storage.sync with automatic syncing.
+ * A custom hook for managing state in chrome.storage.local
  * @param key The storage key.
  * @param defaultValue The default value if none exists in storage.
  * @returns A stateful value and a function to update it.
@@ -24,7 +24,7 @@ export const useChromeStorageState = <T>(
 
   useEffect(() => {
     // Fetch initial value from chrome.storage
-    chrome.storage.sync.get(key, (data) => {
+    chrome.storage.local.get(key, (data) => {
       if (data[key] !== undefined) {
         setState(data[key] as T)
       }
@@ -49,7 +49,7 @@ export const useChromeStorageState = <T>(
       setState((prev) => {
         const updatedValue =
           newValue instanceof Function ? newValue(prev) : newValue
-        chrome.storage.sync.set({ [key]: updatedValue })
+        chrome.storage.local.set({ [key]: updatedValue })
         return updatedValue
       })
     },
@@ -75,7 +75,7 @@ export const useAllGameSettings = () => {
   const settings = useMap<string>()
 
   const fetchSettings = useCallback(() => {
-    chrome.storage.sync.get(null, (data) => {
+    chrome.storage.local.get(null, (data) => {
       Object.entries(data).forEach(([key, value]) => {
         settings.set(key, value)
       })
@@ -104,7 +104,7 @@ export const useAllGameSettings = () => {
 
   const deleteGame = useCallback(
     (url: string) => {
-      chrome.storage.sync.remove(url)
+      chrome.storage.local.remove(url)
       settings.delete(url)
     },
     [settings],
