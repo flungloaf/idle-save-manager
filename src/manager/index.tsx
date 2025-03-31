@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { useAllGameSettings } from '@/storage'
 
 export const Manager = () => {
-  const { settings: allSettings, deleteGame } = useAllGameSettings()
+  const { settings, deleteGame } = useAllGameSettings()
   return (
     <div className="container mx-auto py-6 max-w-4xl">
       <div className="flex items-center mb-6">
@@ -14,8 +14,8 @@ export const Manager = () => {
       </div>
 
       <div className="space-y-4">
-        {allSettings.map((settings, index) => (
-          <Game key={index} url={settings.url} onDelete={deleteGame} />
+        {Array.from(settings.entries()).map(([url]) => (
+          <Game key={url} url={url} onDelete={deleteGame} />
         ))}
       </div>
     </div>

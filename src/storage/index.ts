@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { GameSettings } from './types'
+import { useMap } from '@uidotdev/usehooks'
 
 const defaultSettigns: GameSettings = {
   enabled: false,
@@ -71,21 +72,43 @@ export const useGameSettings = (
 }
 
 export const useAllGameSettings = () => {
-  const [settings, setSettings] = useState<GameSettings[]>([])
-  useEffect(() => {
-    chrome.storage.sync.get(null, (data) => {
-      const allSettings = Object.entries(data).map(([, value]) => ({
-        ...value,
-      }))
-      setSettings(allSettings)
-    })
-  }, [])
+  const settings = useMap<string>()
 
-  const deleteGame = useCallback((url: string) => {
-    chrome.storage.sync.remove(url, () => {
-      setSettings((prev) => prev.filter((setting) => setting.url !== url))
+  const fetchSettings = useCallback(() => {
+    chrome.storage.sync.get(null, (data) => {
+      Object.entries(data).forEach(([key, value]) => {
+        settings.set(key, value)
+      })
     })
-  }, [])
+  }, [settings])
+
+  const onChange = useCallback(
+    (changes: Record<string, chrome.storage.StorageChange>) =>
+      Object.entries(changes).forEach(([key, { newValue }]) => {
+        if (!newValue) {
+          settings.delete(key)
+          return
+        }
+        settings.set(key, newValue)
+      }),
+    [settings],
+  )
+
+  useEffect(() => {
+    fetchSettings()
+    chrome.storage.onChanged.addListener(onChange)
+    return () => {
+      chrome.storage.onChanged.removeListener(onChange)
+    }
+  }, [fetchSettings, onChange])
+
+  const deleteGame = useCallback(
+    (url: string) => {
+      chrome.storage.sync.remove(url)
+      settings.delete(url)
+    },
+    [settings],
+  )
 
   return { settings, deleteGame }
 }
