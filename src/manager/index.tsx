@@ -4,6 +4,7 @@ import '../index.css'
 import Game from '@/manager/Game'
 import { Toaster } from '@/components/ui/sonner'
 import { useAllGameSettings } from '@/storage'
+import { Card, CardContent } from '@/components/ui/card'
 
 export const Manager = () => {
   const { settings, deleteGame } = useAllGameSettings()
@@ -14,6 +15,19 @@ export const Manager = () => {
       </div>
 
       <div className="space-y-4">
+        {Array.from(settings.entries()).length === 0 && (
+          <Card>
+            <CardContent className="p-4">
+              <div className="text-center text-sm text-muted-foreground">
+                No games found. Add a game to manage saves.
+              </div>
+              <div className="text-center text-sm text-muted-foreground">
+                Go to a page with a game, click the extension icon and turn it
+                on to add a game
+              </div>
+            </CardContent>
+          </Card>
+        )}
         {Array.from(settings.entries()).map(([url]) => (
           <Game key={url} url={url} onDelete={deleteGame} />
         ))}
