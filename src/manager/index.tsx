@@ -5,6 +5,7 @@ import Game from '@/manager/Game'
 import { Toaster } from '@/components/ui/sonner'
 import { useAllGameSettings } from '@/storage'
 import { Card, CardContent } from '@/components/ui/card'
+import { TooltipProvider } from '@/components/ui/tooltip'
 
 export const Manager = () => {
   const { settings, deleteGame } = useAllGameSettings()
@@ -38,7 +39,9 @@ export const Manager = () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Manager />
-    <Toaster />
+    <TooltipProvider>
+      <Manager />
+      <Toaster />
+    </TooltipProvider>
   </StrictMode>,
 )

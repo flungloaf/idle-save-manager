@@ -1,8 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { useTimeAgo } from '@/lib/utils'
 import ConfirmDialog from '@/manager/ConfirmDialog'
 import { Save as SaveType } from '@/storage/types'
+import { format } from 'date-fns'
 import {
   Clipboard,
   Copy,
@@ -78,9 +84,18 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
         ) : (
           <div className="flex items-center">
             <h3 className="font-medium text-sm">{save.name}</h3>
-            <span className="text-xs text-muted-foreground ml-2">
-              {timeAgo}
-            </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs text-muted-foreground ml-2">
+                  {timeAgo}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <span className="text-xs text-accent">
+                  {format(save.timestamp, 'EEE, dd MMM yyyy HH:mm:ss')}
+                </span>
+              </TooltipContent>
+            </Tooltip>
           </div>
         )}
 
