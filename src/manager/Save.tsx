@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useTimeAgo } from '@/lib/utils'
 import ConfirmDialog from '@/manager/ConfirmDialog'
 import { Save as SaveType } from '@/storage/types'
-import { formatDistanceToNow } from 'date-fns'
 import {
   Clipboard,
   Copy,
@@ -46,6 +46,7 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
       icon: <Clipboard />,
     })
   }
+  const timeAgo = useTimeAgo(save.timestamp)
   return (
     <div className="py-2 px-3 first:border-t not-last:border-b">
       <div className="flex items-center justify-between">
@@ -78,7 +79,7 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
           <div className="flex items-center">
             <h3 className="font-medium text-sm">{save.name}</h3>
             <span className="text-xs text-muted-foreground ml-2">
-              {formatDistanceToNow(save.timestamp, { addSuffix: true })}
+              {timeAgo}
             </span>
           </div>
         )}
