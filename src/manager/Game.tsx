@@ -3,7 +3,7 @@ import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import GameHeader from '@/manager/GameHeader'
 import Save from '@/manager/Save'
 import { GameSettings } from '@/storage/types'
-import { SaveIcon } from 'lucide-react'
+import { SaveIcon, Trash } from 'lucide-react'
 import React, { useCallback, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -23,6 +23,14 @@ const Game: React.FC<Props> = ({ settings, setSettings }) => {
     },
     [settings, setSettings],
   )
+  const deleteSave = useCallback(
+    (index: number) => {
+      const updatedSaves = settings.saves.filter((_, i) => i !== index)
+      setSettings({ ...settings, saves: updatedSaves })
+      toast('Save deleted', { icon: <Trash /> })
+    },
+    [settings, setSettings],
+  )
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
@@ -35,6 +43,7 @@ const Game: React.FC<Props> = ({ settings, setSettings }) => {
                 key={index}
                 save={save}
                 updateSave={(s) => updateSave(index, s)}
+                onDelete={() => deleteSave(index)}
               />
             ))}
           </CardContent>

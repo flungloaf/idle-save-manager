@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import ConfirmDialog from '@/manager/ConfirmDialog'
 import { Save as SaveType } from '@/storage/types'
 import { formatDistanceToNow } from 'date-fns'
 import {
@@ -18,9 +19,10 @@ import { toast } from 'sonner'
 interface Props {
   save: SaveType
   updateSave: (save: SaveType) => void
+  onDelete: (save: SaveType) => void
 }
 
-const Save: React.FC<Props> = ({ save, updateSave }) => {
+const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
   const [name, setName] = useState(save.name)
   const [editing, setEditing] = useState(false)
   const [showData, setShowData] = useState(false)
@@ -117,14 +119,21 @@ const Save: React.FC<Props> = ({ save, updateSave }) => {
             )}
           </Button>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-6 w-6 p-0 text-destructive hover:text-destructive"
-            title="Remove save"
-          >
-            <Trash className="h-3 w-3" />
-          </Button>
+          <ConfirmDialog
+            title="Delete save"
+            description={`Are you sure you want to delete the save "${save.name}"? This action cannot be undone.`}
+            onConfirm={() => onDelete(save)}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-6 w-6 p-0 text-destructive hover:text-destructive"
+                title="Remove save"
+              >
+                <Trash className="h-3 w-3" />
+              </Button>
+            }
+          />
         </div>
       </div>
 
