@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 function App() {
   const [url, setUrl] = useState<string>()
   const [title, setTitle] = useState<string>()
+  const [favicon, setFavicon] = useState<string>()
   useEffect(() => {
     const loadUrl = async () => {
       const tabs = await chrome.tabs.query({
@@ -25,6 +26,7 @@ function App() {
       })
       setUrl(tabs[0].url)
       setTitle(tabs[0].title)
+      setFavicon(tabs[0].favIconUrl)
     }
     loadUrl()
   }, [])
@@ -43,6 +45,9 @@ function App() {
         if (!prev.url && url) {
           newSettings.url = url
         }
+        if (!prev.favicon && favicon) {
+          newSettings.favicon = favicon
+        }
         return newSettings
       })
       return
@@ -53,6 +58,7 @@ function App() {
       dataType: 'any',
       name: title || '',
       url: url || '',
+      favicon: favicon || '',
       saves: [],
     })
   }

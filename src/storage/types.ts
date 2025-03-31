@@ -11,6 +11,7 @@ export type DataType = 'base64' | 'json' | 'any'
 export interface GameSettings {
   name: string
   url: string
+  favicon: string
   enabled: boolean
   dataType: DataType
   saves: Save[]

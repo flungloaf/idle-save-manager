@@ -104,6 +104,9 @@ const GameHeader: React.FC<Props> = ({
             </div>
           ) : (
             <div className="flex items-center">
+              {settings.favicon && (
+                <img src={settings.favicon} className="w-10 h-10 p-2" />
+              )}
               <div className="font-medium text-base">{settings.name}</div>
               <Button
                 variant="ghost"

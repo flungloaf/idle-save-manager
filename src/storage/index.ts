@@ -8,6 +8,7 @@ const defaultSettigns: GameSettings = {
   saves: [],
   name: '',
   url: '',
+  favicon: '',
 }
 
 /**
