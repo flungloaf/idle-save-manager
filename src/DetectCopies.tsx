@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useGameSettings } from './storage'
+import { extractSaveDataFromClipboard } from '@/saveManagement'
 
 const DetectCopies = () => {
   const url = window.location.href
@@ -14,7 +15,7 @@ const DetectCopies = () => {
 
   const handleCopy = useCallback(async () => {
     if (!settingsRef.current?.enabled) return
-    const data = await navigator.clipboard.readText()
+    const data = await extractSaveDataFromClipboard(settingsRef.current)
     if (!data) return
     setSettings((prev) => ({
       ...prev,
