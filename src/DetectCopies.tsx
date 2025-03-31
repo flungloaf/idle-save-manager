@@ -21,8 +21,12 @@ const DetectCopies = () => {
       ...prev,
       saves: [
         ...prev.saves,
-        { name: 'test', data, timestamp: new Date().getTime() },
-      ],
+        {
+          name: (prev.saves.length + 1).toString(),
+          data,
+          timestamp: new Date().getTime(),
+        },
+      ].sort((a, b) => b.timestamp - a.timestamp),
     }))
   }, [setSettings])
 
