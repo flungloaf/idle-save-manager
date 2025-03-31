@@ -17,7 +17,7 @@ import {
   Trash,
   X,
 } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 interface Props {
   settings: GameSettings
@@ -52,6 +52,10 @@ const GameHeader: React.FC<Props> = ({
     setEditingUrl(false)
     setUrl(settings.url)
   }
+  useEffect(() => {
+    setName(settings.name)
+    setUrl(settings.url)
+  }, [settings.name, settings.url])
   return (
     <CardHeader className="pb-6">
       <div className="flex items-center justify-between">
