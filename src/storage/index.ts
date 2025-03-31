@@ -5,6 +5,8 @@ const defaultSettigns: GameSettings = {
   enabled: false,
   dataType: 'any',
   saves: [],
+  name: '',
+  url: '',
 }
 
 /**

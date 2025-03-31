@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button'
 
 function App() {
   const [url, setUrl] = useState<string>()
+  const [title, setTitle] = useState<string>()
   useEffect(() => {
     const loadUrl = async () => {
       const tabs = await chrome.tabs.query({
@@ -23,6 +24,7 @@ function App() {
         currentWindow: true,
       })
       setUrl(tabs[0].url)
+      setTitle(tabs[0].title)
     }
     loadUrl()
   }, [])
@@ -30,18 +32,31 @@ function App() {
 
   const toggleSave = async () => {
     if (settings) {
-      setSettings({ ...settings, enabled: !settings.enabled })
+      setSettings((prev) => {
+        const newSettings = {
+          ...prev,
+          enabled: !prev.enabled,
+        }
+        if (!prev.name && title) {
+          newSettings.name = title
+        }
+        if (!prev.url && url) {
+          newSettings.url = url
+        }
+        return newSettings
+      })
       return
     }
 
     setSettings({
       enabled: false,
-      dataType: 'json',
+      dataType: 'any',
+      name: title || '',
+      url: url || '',
       saves: [],
     })
   }
 
-  console.log({ settings })
   return (
     <div className="w-[300px] p-4 flex flex-col gap-4 bg-background">
       <div className="flex items-center justify-between">
@@ -99,7 +114,15 @@ function App() {
         </Accordion>
       </div>
 
-      <Button variant="outline" className="w-full flex items-center gap-2">
+      <Button
+        variant="outline"
+        className="w-full flex items-center gap-2"
+        onClick={() =>
+          chrome.tabs.create({
+            url: chrome.runtime.getURL('manager.html'),
+          })
+        }
+      >
         <ExternalLink className="h-4 w-4" />
         Open Full Screen View
       </Button>

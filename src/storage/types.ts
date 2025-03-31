@@ -9,6 +9,8 @@ export interface Save {
 export type DataType = 'base64' | 'json' | 'any'
 
 export interface GameSettings {
+  name: string
+  url: string
   enabled: boolean
   dataType: DataType
   saves: Save[]
