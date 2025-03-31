@@ -2,19 +2,20 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import GameHeader from '@/manager/GameHeader'
 import Save from '@/manager/Save'
+import { useGameSettings } from '@/storage'
 import { GameSettings } from '@/storage/types'
 import { SaveIcon, Trash } from 'lucide-react'
 import React, { useCallback, useState } from 'react'
 import { toast } from 'sonner'
 
 interface Props {
-  settings: GameSettings
-  setSettings: (newValue: GameSettings) => void
-  onDelete: () => void
+  url: string
+  onDelete: (url: string) => void
 }
 
-const Game: React.FC<Props> = ({ settings, setSettings, onDelete }) => {
+const Game: React.FC<Props> = ({ url, onDelete }) => {
   const [open, setOpen] = useState(false)
+  const [settings, setSettings] = useGameSettings(url)
   const updateSave = useCallback(
     (index: number, newSave: GameSettings['saves'][number]) => {
       const updatedSaves = [...settings.saves]
@@ -40,7 +41,7 @@ const Game: React.FC<Props> = ({ settings, setSettings, onDelete }) => {
           settings={settings}
           setSettings={setSettings}
           open={open}
-          onDelete={onDelete}
+          onDelete={() => onDelete(url)}
         />
         <CollapsibleContent>
           <CardContent className="p-0 py-0">

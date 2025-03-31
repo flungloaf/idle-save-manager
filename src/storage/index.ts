@@ -69,3 +69,23 @@ export const useGameSettings = (
   )
   return url ? chromeStorageState : defaultState
 }
+
+export const useAllGameSettings = () => {
+  const [settings, setSettings] = useState<GameSettings[]>([])
+  useEffect(() => {
+    chrome.storage.sync.get(null, (data) => {
+      const allSettings = Object.entries(data).map(([, value]) => ({
+        ...value,
+      }))
+      setSettings(allSettings)
+    })
+  }, [])
+
+  const deleteGame = useCallback((url: string) => {
+    chrome.storage.sync.remove(url, () => {
+      setSettings((prev) => prev.filter((setting) => setting.url !== url))
+    })
+  }, [])
+
+  return { settings, deleteGame }
+}
