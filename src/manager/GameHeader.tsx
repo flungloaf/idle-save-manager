@@ -1,11 +1,19 @@
 import { Button } from '@/components/ui/button'
 import { CardHeader } from '@/components/ui/card'
 import { CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import ConfirmDialog from '@/manager/ConfirmDialog'
-import { GameSettings } from '@/storage/types'
+import { DataType, GameSettings } from '@/storage/types'
 import {
   ChevronDown,
   ChevronUp,
@@ -124,14 +132,35 @@ const GameHeader: React.FC<Props> = ({
             </Label>
           </div>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 w-7 p-0"
-            title="Settings"
-          >
-            <Settings className="h-4 w-4" />
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 w-7 p-0"
+                title="Settings"
+              >
+                <Settings className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>
+                What kind of clipboard data do you want to save?
+              </DropdownMenuLabel>
+              <DropdownMenuRadioGroup
+                value={settings.dataType}
+                onValueChange={(v) =>
+                  setSettings({ ...settings, dataType: v as DataType })
+                }
+              >
+                <DropdownMenuRadioItem value="any">Any</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="json">JSON</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="base64">
+                  Base64
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <ConfirmDialog
             title="Delete game"
