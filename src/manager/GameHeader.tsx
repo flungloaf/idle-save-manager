@@ -4,6 +4,7 @@ import { CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import ConfirmDialog from '@/manager/ConfirmDialog'
 import { GameSettings } from '@/storage/types'
 import {
   ChevronDown,
@@ -22,9 +23,15 @@ interface Props {
   settings: GameSettings
   setSettings: (settings: GameSettings) => void
   open: boolean
+  onDelete: () => void
 }
 
-const GameHeader: React.FC<Props> = ({ settings, setSettings, open }) => {
+const GameHeader: React.FC<Props> = ({
+  settings,
+  setSettings,
+  open,
+  onDelete,
+}) => {
   const [editingName, setEditingName] = useState(false)
   const [name, setName] = useState(settings.name)
   const onSaveName = () => {
@@ -122,14 +129,21 @@ const GameHeader: React.FC<Props> = ({ settings, setSettings, open }) => {
             <Settings className="h-4 w-4" />
           </Button>
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-7 w-7 p-0 text-destructive hover:text-destructive"
-            title="Remove section"
-          >
-            <Trash className="h-4 w-4" />
-          </Button>
+          <ConfirmDialog
+            title="Delete game"
+            description={`Are you sure you want to delete "${settings.name}"?`}
+            onConfirm={onDelete}
+            trigger={
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-7 w-7 p-0 text-destructive hover:text-destructive"
+                title="Remove game"
+              >
+                <Trash className="h-4 w-4" />
+              </Button>
+            }
+          />
         </div>
       </div>
 

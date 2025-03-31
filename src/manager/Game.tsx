@@ -10,9 +10,10 @@ import { toast } from 'sonner'
 interface Props {
   settings: GameSettings
   setSettings: (newValue: GameSettings) => void
+  onDelete: () => void
 }
 
-const Game: React.FC<Props> = ({ settings, setSettings }) => {
+const Game: React.FC<Props> = ({ settings, setSettings, onDelete }) => {
   const [open, setOpen] = useState(false)
   const updateSave = useCallback(
     (index: number, newSave: GameSettings['saves'][number]) => {
@@ -35,7 +36,12 @@ const Game: React.FC<Props> = ({ settings, setSettings }) => {
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
       <Card className="gap-0 pb-0">
-        <GameHeader settings={settings} setSettings={setSettings} open={open} />
+        <GameHeader
+          settings={settings}
+          setSettings={setSettings}
+          open={open}
+          onDelete={onDelete}
+        />
         <CollapsibleContent>
           <CardContent className="p-0 py-0">
             {settings.saves.map((save, index) => (

@@ -74,6 +74,9 @@ export const Manager = () => {
                 return newSettings
               })
             }
+            onDelete={() =>
+              setAllSettings((prev) => prev.filter((_, i) => i !== index))
+            }
           />
         ))}
       </div>
