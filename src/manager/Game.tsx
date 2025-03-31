@@ -36,7 +36,7 @@ const Game: React.FC<Props> = ({ url, onDelete }) => {
 
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <Card className="gap-0 pb-0 bg-gray-200">
+      <Card className="gap-0 pb-0">
         <GameHeader
           settings={settings}
           setSettings={setSettings}

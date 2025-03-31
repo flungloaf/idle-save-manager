@@ -12,6 +12,7 @@ export interface GameSettings {
   name: string
   url: string
   favicon: string
+  showFavicon: boolean
   enabled: boolean
   dataType: DataType
   saves: Save[]

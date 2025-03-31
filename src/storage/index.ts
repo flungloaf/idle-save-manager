@@ -9,6 +9,7 @@ const defaultSettigns: GameSettings = {
   name: '',
   url: '',
   favicon: '',
+  showFavicon: true,
 }
 
 /**

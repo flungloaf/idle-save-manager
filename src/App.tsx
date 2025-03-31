@@ -59,6 +59,7 @@ function App() {
       name: title || '',
       url: url || '',
       favicon: favicon || '',
+      showFavicon: true,
       saves: [],
     })
   }
@@ -92,6 +93,16 @@ function App() {
             </AccordionTrigger>
             <AccordionContent>
               <div className="py-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <Switch
+                    id="show-favicon"
+                    checked={settings.showFavicon}
+                    onCheckedChange={(show) =>
+                      setSettings({ ...settings, showFavicon: show })
+                    }
+                  />
+                  <Label htmlFor="show-favicon">Show favicon</Label>
+                </div>
                 <Label className="text-sm font-medium mb-2 block">
                   What kind of clipboard data do you want to save?
                 </Label>

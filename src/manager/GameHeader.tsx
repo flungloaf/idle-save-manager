@@ -7,6 +7,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
@@ -104,7 +105,7 @@ const GameHeader: React.FC<Props> = ({
             </div>
           ) : (
             <div className="flex items-center">
-              {settings.favicon && (
+              {settings.showFavicon && settings.favicon && (
                 <img src={settings.favicon} className="w-10 h-10 p-2" />
               )}
               <div className="font-medium text-base">{settings.name}</div>
@@ -162,6 +163,17 @@ const GameHeader: React.FC<Props> = ({
                   Base64
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+              <div className="flex items-center px-3 py-2 gap-2">
+                <Switch
+                  id="show-favicon"
+                  checked={settings.showFavicon}
+                  onCheckedChange={(show) =>
+                    setSettings({ ...settings, showFavicon: show })
+                  }
+                />
+                <Label htmlFor="show-favicon">Show favicon</Label>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
 
