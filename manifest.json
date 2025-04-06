@@ -10,5 +10,5 @@
       "js": ["src/content.tsx"]
     }
   ],
-  "permissions": ["storage", "tabs", "scripting"]
+  "permissions": ["storage", "tabs"]
 }
