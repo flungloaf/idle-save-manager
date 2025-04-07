@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { GameSettings } from './types'
 import { useMap } from '@uidotdev/usehooks'
 
-const defaultSettigns: GameSettings = {
+export const defaultSettigns: GameSettings = {
   enabled: false,
   dataType: 'any',
   saves: [],
@@ -29,6 +29,8 @@ export const useChromeStorageState = <T>(
     chrome.storage.local.get(key, (data) => {
       if (data[key] !== undefined) {
         setState(data[key] as T)
+      } else {
+        setState(defaultValue)
       }
     })
 
@@ -43,7 +45,7 @@ export const useChromeStorageState = <T>(
     chrome.storage.onChanged.addListener(handleStorageChange)
 
     return () => chrome.storage.onChanged.removeListener(handleStorageChange)
-  }, [key])
+  }, [defaultValue, key])
 
   // Function to update state and storage
   const setChromeStorageState = useCallback(
