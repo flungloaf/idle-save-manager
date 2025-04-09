@@ -9,9 +9,9 @@ const listeners: ((
 const chromeMock = {
   storage: {
     local: {
-      get: (
+      get: async (
         keys: string | string[] | Record<string, unknown> | null,
-        callback: (items: Record<string, unknown>) => void,
+        callback?: (items: Record<string, unknown>) => void,
       ) => {
         const result: Record<string, unknown> = {}
 
@@ -27,10 +27,11 @@ const chromeMock = {
           })
         }
 
-        callback(result)
+        callback?.(result)
+        return result
       },
 
-      set: (items: Record<string, unknown>, callback?: () => void) => {
+      set: async (items: Record<string, unknown>, callback?: () => void) => {
         const changes: Record<string, StorageChange> = {}
         for (const [key, value] of Object.entries(items)) {
           const oldValue = storage.get(key)
@@ -42,7 +43,7 @@ const chromeMock = {
         callback?.()
       },
 
-      remove: (keys: string | string[], callback?: () => void) => {
+      remove: async (keys: string | string[], callback?: () => void) => {
         const keysArray = Array.isArray(keys) ? keys : [keys]
         const changes: Record<string, StorageChange> = {}
 
@@ -56,7 +57,7 @@ const chromeMock = {
         callback?.()
       },
 
-      clear: (callback?: () => void) => {
+      clear: async (callback?: () => void) => {
         const changes: Record<string, StorageChange> = {}
         for (const [key, oldValue] of storage.entries()) {
           changes[key] = { oldValue, newValue: undefined }

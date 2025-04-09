@@ -70,7 +70,12 @@ const GameHeader: React.FC<Props> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <CollapsibleTrigger asChild>
-            <Button variant="ghost" size="sm" className="p-1 h-7 w-7">
+            <Button
+              data-testid="toggle-saves"
+              variant="ghost"
+              size="sm"
+              className="p-1 h-7 w-7"
+            >
               {open ? (
                 <ChevronUp className="h-4 w-4" />
               ) : (
@@ -91,6 +96,7 @@ const GameHeader: React.FC<Props> = ({
                 variant="ghost"
                 onClick={onSaveName}
                 className="ml-2 h-7 w-7 p-0"
+                title="Save name"
               >
                 <Save className="h-4 w-4" />
               </Button>
@@ -99,6 +105,7 @@ const GameHeader: React.FC<Props> = ({
                 variant="ghost"
                 onClick={onCancelEditingName}
                 className="h-7 w-7 p-0"
+                title="Cancel"
               >
                 <X className="h-4 w-4" />
               </Button>
@@ -200,7 +207,7 @@ const GameHeader: React.FC<Props> = ({
           <Input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            className="h-7 text-xs w-fit"
+            className="h-7 text-xs w-[400px]"
             autoFocus
           />
           <Button
@@ -208,6 +215,7 @@ const GameHeader: React.FC<Props> = ({
             variant="ghost"
             onClick={onSaveUrl}
             className="ml-2 h-7 w-7 p-0"
+            title="Save URL"
           >
             <Save className="h-4 w-4" />
           </Button>
@@ -216,6 +224,7 @@ const GameHeader: React.FC<Props> = ({
             variant="ghost"
             onClick={onCancelEditingUrl}
             className="h-7 w-7 p-0"
+            title="Cancel"
           >
             <X className="h-4 w-4" />
           </Button>

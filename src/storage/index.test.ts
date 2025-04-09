@@ -4,13 +4,10 @@ import {
   defaultSettigns,
   useAllGameSettings,
 } from '@/storage'
-import chromeMock from '../../__mocks__/chrome'
 import { renderHook, act } from '@testing-library/react'
 
-vi.mock('chrome', () => ({ default: chromeMock }))
-
 beforeEach(() => {
-  chromeMock.storage.local.clear()
+  chrome.storage.local.clear()
 })
 
 describe('useChromeStorageState', () => {
@@ -47,7 +44,7 @@ describe('useChromeStorageState', () => {
   })
 
   it('returns a value present in storage', () => {
-    chromeMock.storage.local.set({ testKey: 'storedValue' })
+    chrome.storage.local.set({ testKey: 'storedValue' })
     const { result } = renderHook(() =>
       useChromeStorageState('testKey', 'defaultValue'),
     )
@@ -63,7 +60,7 @@ describe('useChromeStorageState', () => {
     const [state] = result.current
     expect(state).toBe('defaultValue')
     act(() => {
-      chromeMock.storage.local.set({ testKey: 'changedValue' })
+      chrome.storage.local.set({ testKey: 'changedValue' })
     })
 
     const [updatedState] = result.current
@@ -82,7 +79,7 @@ describe('useChromeStorageState', () => {
     expect(state).toBe('defaultValue')
 
     act(() => {
-      chromeMock.storage.local.set({ testKey: 'changedValue' })
+      chrome.storage.local.set({ testKey: 'changedValue' })
     })
 
     const [updatedState] = result.current
@@ -105,7 +102,7 @@ describe('useGameSettings', () => {
   it('loads new settings when URL changes', async () => {
     const url = 'https://example.com'
     act(() => {
-      chromeMock.storage.local.set({
+      chrome.storage.local.set({
         [url]: {
           ...defaultSettigns,
           url,
@@ -133,7 +130,7 @@ describe('useAllGameSettings', () => {
     const url2 = 'https://example2.com'
 
     act(() => {
-      chromeMock.storage.local.set({
+      chrome.storage.local.set({
         [url1]: {
           ...defaultSettigns,
           url: url1,
@@ -157,7 +154,7 @@ describe('useAllGameSettings', () => {
     const url2 = 'https://example2.com'
 
     act(() => {
-      chromeMock.storage.local.set({
+      chrome.storage.local.set({
         [url1]: {
           ...defaultSettigns,
           url: url1,
@@ -174,7 +171,7 @@ describe('useAllGameSettings', () => {
     expect(settings.size).toBe(2)
 
     act(() => {
-      chromeMock.storage.local.set({
+      chrome.storage.local.set({
         [url1]: {
           ...defaultSettigns,
           url: url1,
@@ -192,7 +189,7 @@ describe('useAllGameSettings', () => {
     const url2 = 'https://example2.com'
 
     act(() => {
-      chromeMock.storage.local.set({
+      chrome.storage.local.set({
         [url1]: {
           ...defaultSettigns,
           url: url1,

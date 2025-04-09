@@ -54,7 +54,10 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
   }
   const timeAgo = useTimeAgo(save.timestamp)
   return (
-    <div className="py-2 px-3 first:border-t not-last:border-b">
+    <div
+      data-testid="save"
+      className="py-2 px-3 first:border-t not-last:border-b"
+    >
       <div className="flex items-center justify-between">
         {editing ? (
           <div className="flex items-center">
@@ -69,6 +72,7 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
               variant="ghost"
               onClick={onSave}
               className="ml-2 h-7 w-7 p-0"
+              title="Save name"
             >
               <SaveIcon className="h-4 w-4" />
             </Button>
@@ -77,6 +81,7 @@ const Save: React.FC<Props> = ({ save, updateSave, onDelete }) => {
               variant="ghost"
               onClick={onCancelEditing}
               className="h-7 w-7 p-0"
+              title="Cancel"
             >
               <X className="h-4 w-4" />
             </Button>
