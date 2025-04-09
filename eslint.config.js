@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
+import importPlugin from 'eslint-plugin-import'
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage'] },
@@ -12,8 +13,17 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
       eslintConfigPrettier,
     ],
+    settings: {
+      'import/resolver': {
+        typescript: true,
+        node: true,
+      },
+      'import/internal-regex': '^@/',
+    },
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2020,
@@ -31,6 +41,16 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       'react/self-closing-comp': 'error',
+      'import/order': [
+        'error',
+        {
+          groups: ['builtin', 'external', ['internal', 'parent', 'sibling']],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+          },
+        },
+      ],
     },
   },
 )
