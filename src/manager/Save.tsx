@@ -1,13 +1,3 @@
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { useTimeAgo } from '@/lib/utils'
-import ConfirmDialog from '@/manager/ConfirmDialog'
-import { Save as SaveType } from '@/storage/types'
 import { format } from 'date-fns'
 import {
   Clipboard,
@@ -21,6 +11,17 @@ import {
 } from 'lucide-react'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
+
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
+import { useTimeAgo } from '@/lib/utils'
+import ConfirmDialog from '@/manager/ConfirmDialog'
+import { Save as SaveType } from '@/storage/types'
 
 interface Props {
   save: SaveType

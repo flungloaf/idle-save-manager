@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
-import { GameSettings } from './types'
 import { useMap } from '@uidotdev/usehooks'
+import { useCallback, useEffect, useState } from 'react'
+
+import { GameSettings } from './types'
 
 export const defaultSettigns: GameSettings = {
   enabled: false,

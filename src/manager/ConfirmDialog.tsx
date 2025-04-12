@@ -1,3 +1,6 @@
+import { VariantProps } from 'class-variance-authority'
+import React from 'react'
+
 import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Dialog,
@@ -9,8 +12,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { VariantProps } from 'class-variance-authority'
-import React from 'react'
 
 interface Props {
   trigger: React.ReactNode

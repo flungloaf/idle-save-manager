@@ -1,12 +1,13 @@
+import { SaveIcon, Trash } from 'lucide-react'
+import React, { useCallback, useState } from 'react'
+import { toast } from 'sonner'
+
 import { Card, CardContent } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
 import GameHeader from '@/manager/GameHeader'
 import Save from '@/manager/Save'
 import { useGameSettings } from '@/storage'
 import { GameSettings } from '@/storage/types'
-import { SaveIcon, Trash } from 'lucide-react'
-import React, { useCallback, useState } from 'react'
-import { toast } from 'sonner'
 
 interface Props {
   url: string

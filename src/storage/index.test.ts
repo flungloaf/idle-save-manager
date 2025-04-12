@@ -1,10 +1,11 @@
+import { renderHook, act } from '@testing-library/react'
+
 import {
   useChromeStorageState,
   useGameSettings,
   defaultSettigns,
   useAllGameSettings,
 } from '@/storage'
-import { renderHook, act } from '@testing-library/react'
 
 beforeEach(() => {
   chrome.storage.local.clear()

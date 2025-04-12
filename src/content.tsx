@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import DetectCopies from './DetectCopies'
 
 const root = document.createElement('div')

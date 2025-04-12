@@ -1,3 +1,16 @@
+import {
+  ChevronDown,
+  ChevronUp,
+  Edit,
+  ExternalLink,
+  Link,
+  Save,
+  Settings,
+  Trash,
+  X,
+} from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+
 import { Button } from '@/components/ui/button'
 import { CardHeader } from '@/components/ui/card'
 import { CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -15,18 +28,6 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import ConfirmDialog from '@/manager/ConfirmDialog'
 import { DataType, GameSettings } from '@/storage/types'
-import {
-  ChevronDown,
-  ChevronUp,
-  Edit,
-  ExternalLink,
-  Link,
-  Save,
-  Settings,
-  Trash,
-  X,
-} from 'lucide-react'
-import React, { useEffect, useState } from 'react'
 
 interface Props {
   settings: GameSettings

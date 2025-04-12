@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
+
 import { useGameSettings } from './storage'
 import { extractSaveDataFromClipboard } from '@/saveManagement'
 

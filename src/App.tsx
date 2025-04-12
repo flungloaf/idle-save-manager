@@ -1,18 +1,19 @@
+import { Settings, ExternalLink } from 'lucide-react'
 import { useEffect, useState } from 'react'
+
 import './index.css'
 import { useGameSettings } from './storage'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import { DataType } from '@/storage/types'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { Settings, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+import { Switch } from '@/components/ui/switch'
+import { DataType } from '@/storage/types'
 
 function App() {
   const [url, setUrl] = useState<string>()
