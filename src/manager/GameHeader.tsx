@@ -26,8 +26,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { DataType, GameSettings } from '@/lib/types'
 import ConfirmDialog from '@/manager/ConfirmDialog'
-import { DataType, GameSettings } from '@/storage/types'
 
 interface Props {
   settings: GameSettings

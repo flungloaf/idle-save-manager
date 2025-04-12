@@ -4,10 +4,10 @@ import { toast } from 'sonner'
 
 import { Card, CardContent } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible'
+import { useGameSettings } from '@/lib/storage'
+import { GameSettings } from '@/lib/types'
 import GameHeader from '@/manager/GameHeader'
 import Save from '@/manager/Save'
-import { useGameSettings } from '@/storage'
-import { GameSettings } from '@/storage/types'
 
 interface Props {
   url: string

@@ -19,9 +19,9 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { Save as SaveType } from '@/lib/types'
 import { useTimeAgo } from '@/lib/utils'
 import ConfirmDialog from '@/manager/ConfirmDialog'
-import { Save as SaveType } from '@/storage/types'
 
 interface Props {
   save: SaveType

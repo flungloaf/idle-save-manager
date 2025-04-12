@@ -1,4 +1,4 @@
-import { GameSettings } from '@/storage/types'
+import { GameSettings } from '@/lib/types'
 
 const isJSON = (data: string) => {
   try {

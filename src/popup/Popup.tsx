@@ -1,8 +1,7 @@
 import { Settings, ExternalLink } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-import './index.css'
-import { useGameSettings } from './storage'
+import '../index.css'
 import {
   Accordion,
   AccordionContent,
@@ -13,9 +12,10 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Switch } from '@/components/ui/switch'
-import { DataType } from '@/storage/types'
+import { useGameSettings } from '@/lib/storage'
+import { DataType } from '@/lib/types'
 
-function App() {
+const Popup = () => {
   const [url, setUrl] = useState<string>()
   const [title, setTitle] = useState<string>()
   const [favicon, setFavicon] = useState<string>()
@@ -137,7 +137,7 @@ function App() {
         className="w-full flex items-center gap-2"
         onClick={() =>
           chrome.tabs.create({
-            url: chrome.runtime.getURL('manager.html'),
+            url: chrome.runtime.getURL('src/manager/manager.html'),
           })
         }
       >
@@ -148,4 +148,4 @@ function App() {
   )
 }
 
-export default App
+export default Popup

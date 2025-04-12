@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card'
+import { useAllGameSettings } from '@/lib/storage'
 import Game from '@/manager/Game'
-import { useAllGameSettings } from '@/storage'
 
 export const Manager = () => {
   const { settings, deleteGame } = useAllGameSettings()

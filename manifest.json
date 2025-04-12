@@ -2,12 +2,12 @@
   "manifest_version": 3,
   "name": "Idle save manager",
   "version": "1.0.0",
-  "action": { "default_popup": "index.html" },
+  "action": { "default_popup": "src/popup/popup.html" },
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["src/content.tsx"]
+      "js": ["src/contentScript/main.tsx"]
     }
   ],
   "permissions": ["storage", "tabs"]

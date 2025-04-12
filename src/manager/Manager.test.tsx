@@ -1,8 +1,8 @@
 /// <reference types="@vitest/browser/context" />
 import { act, fireEvent, render, screen, within } from '@testing-library/react'
 
+import { GameSettings, Save } from '@/lib/types'
 import { Manager } from '@/manager/Manager'
-import { GameSettings, Save } from '@/storage/types'
 
 const now = new Date()
 const generateSave = (

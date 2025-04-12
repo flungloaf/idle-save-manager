@@ -5,7 +5,7 @@ import {
   useGameSettings,
   defaultSettigns,
   useAllGameSettings,
-} from '@/storage'
+} from '@/lib/storage'
 
 beforeEach(() => {
   chrome.storage.local.clear()
