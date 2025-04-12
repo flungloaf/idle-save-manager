@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 import react from 'eslint-plugin-react'
 import eslintConfigPrettier from 'eslint-config-prettier/flat'
 import importPlugin from 'eslint-plugin-import'
+import unusedImports from 'eslint-plugin-unused-imports'
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage'] },
@@ -32,7 +33,8 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      react: react,
+      react,
+      'unused-imports': unusedImports,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -49,6 +51,17 @@ export default tseslint.config(
           alphabetize: {
             order: 'asc',
           },
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          varsIgnorePattern: '^_',
+          args: 'after-used',
+          argsIgnorePattern: '^_',
         },
       ],
     },
