@@ -1,5 +1,7 @@
 # Idle Save Manager
 
+[Chrome webstore](https://chromewebstore.google.com/detail/idle-save-manager/mndkhiiffpmgflfjhfbdcmiipipkakbb)
+
 This extension will help you manage game saves with any game that allows you to copy your save data into clipboard, including, but not limited to fan favorites like:
 
 - [Evolve](https://github.com/pmotschmann/Evolve)
