@@ -9,7 +9,7 @@ import { defineConfig } from 'vite'
 import manifest from './manifest.json'
 
 export default defineConfig({
-  plugins: [react(), crx({ manifest }), tailwindcss()],
+  plugins: [react(), crx({ manifest, browser: 'firefox' }), tailwindcss()],
   legacy: {
     skipWebSocketTokenCheck: true,
   },
